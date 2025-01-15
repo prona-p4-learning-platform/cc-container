@@ -33,6 +33,9 @@ RUN curl -LO https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_linux
   && tar -xvf k9s_linux_amd64.tar.gz \
   && mv k9s /usr/local/bin/k9s
 
+# Install nano
+RUN apt-get update && apt-get install -y nano
+
 # Add SSH user
 RUN useradd -m -s /bin/bash -G sudo p4
 RUN echo "p4:p4" | chpasswd
@@ -40,6 +43,9 @@ RUN echo "p4 ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 RUN sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/' /etc/ssh/sshd_config
 USER p4
 WORKDIR /home/p4
+
+# Add labs directory
+COPY labs /home/p4/labs
 
 # Start SSH
 EXPOSE 22
