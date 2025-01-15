@@ -23,11 +23,6 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
   && chmod +x kubectl \
   && mv ./kubectl /usr/local/bin/kubectl
 
-# Install Terraform
-RUN wget https://releases.hashicorp.com/terraform/1.0.9/terraform_1.0.9_linux_amd64.zip \
-  && unzip terraform_1.0.9_linux_amd64.zip \
-  && mv terraform /usr/local/bin/terraform
-
 # Install Helm
 RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 \
   && chmod 700 get_helm.sh \
@@ -51,7 +46,7 @@ EXPOSE 22
 CMD ["/usr/sbin/sshd", "-D"]
 
 # Cleanup
-RUN rm -rf k9s_linux_amd64.tar.gz get_helm.sh terraform_1.0.9_linux_amd64.zip
+RUN rm -rf k9s_linux_amd64.tar.gz get_helm.sh
 
 # Copy start script
 COPY entrypoint.sh /home/p4/entrypoint.sh

@@ -4,7 +4,6 @@ This _cc-container_ provides a containerized environment for running different c
 The following tools are included in the container:
 - [git](https://git-scm.com/)
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/)
-- [terraform](https://www.terraform.io/)
 - [helm](https://helm.sh/)
 - [k9s](https://k9scli.io/)
 
