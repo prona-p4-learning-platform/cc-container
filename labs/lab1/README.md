@@ -22,7 +22,7 @@ In this first lab, you will learn how to work with Kubernetes to deploy your fir
     kubectl get svc
     ```
 
-4. Wait 2-3 minutes for the LoadBalancer to be provisioned.
+4. Wait 2-5 minutes for the LoadBalancer to be provisioned.
 5. Retrieve the external IP address of the `nginx-service`:
 
     ```bash
@@ -47,5 +47,10 @@ In this first lab, you will learn how to work with Kubernetes to deploy your fir
 
 3. Attempt to delete one or more Nginx pods to observe how Kubernetes automatically restarts new ones.
 
-4. Exit `k9s` using `:q`.
+4. Eplore other resources in your k8s namespace, e.g., logs of containers, scale the replicaset, build new deployments and enter a shell in deployed pods etc. You can find examples on the k9s webpage and GitHub repo.
 
+5. Exit `k9s` using `:q` or `Ctrl+C`.
+
+### Cleanup the deployment
+
+Use `kubectl delete deployment nginx-deployment` to delete your deployment or use `k9s` navigate to deployments `:deployments` and delete the deployment there.
