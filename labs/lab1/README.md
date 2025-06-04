@@ -53,8 +53,7 @@ In this first lab, you will learn how to work with Kubernetes to deploy your fir
 
 ### Cleanup the deployment
 
-Delete your deployment and service contained in nginx.yaml
-
+Delete your deployment and service contained in nginx.yaml:
     ```bash
     kubectl delete -f nginx.yaml
     ```
