@@ -1,4 +1,4 @@
-## Cloud Computing Lab 1
+## Cloud Computing - Kubernetes - Lab 1
 
 In this first lab, you will learn how to work with Kubernetes to deploy your first fault-tolerant and scalable Nginx web server.
 
