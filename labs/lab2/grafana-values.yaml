@@ -1,0 +1,121 @@
+# Custom Grafana values for Lab 2
+# This configuration creates a lightweight Grafana instance suitable for educational use
+
+# Resource limits for lab environment
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 250m
+    memory: 256Mi
+
+# Disable persistence (no PVC) for temporary lab use
+persistence:
+  enabled: false
+
+# Use tmpfs for any temporary storage needs
+extraVolumes:
+  - name: tmp-volume
+    emptyDir:
+      sizeLimit: 100Mi
+
+extraVolumeMounts:
+  - name: tmp-volume
+    mountPath: /tmp
+
+# Service configuration - use LoadBalancer for easy access
+service:
+  type: LoadBalancer
+  port: 80
+
+# Security context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 472
+  fsGroup: 472
+
+# Admin user configuration
+adminUser: admin
+# Password will be auto-generated, retrieve with kubectl command
+
+# Environment variables
+env:
+  GF_INSTALL_PLUGINS: "grafana-kubernetes-app"
+
+# Grafana configuration
+grafana.ini:
+  server:
+    root_url: "%(protocol)s://%(domain)s/"
+  
+  # Allow anonymous access for easier lab use
+  auth.anonymous:
+    enabled: true
+    org_role: Viewer
+  
+  # Disable user signup
+  users:
+    allow_sign_up: false
+    auto_assign_org: true
+    auto_assign_org_role: Viewer
+  
+  # Security settings for lab environment
+  security:
+    admin_user: admin
+    cookie_secure: false
+    
+  # Feature toggles
+  feature_toggles:
+    enable: "publicDashboards"
+
+# Configure default dashboards
+dashboards:
+  default:
+    kubernetes-cluster:
+      gnetId: 6417
+      revision: 1
+      datasource: Prometheus
+    
+    kubernetes-pods:
+      gnetId: 6336
+      revision: 1
+      datasource: Prometheus
+
+# Data source configuration (will be configured manually in lab)
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-service.<prometheus-namespace>.svc.cluster.local:9090
+      access: proxy
+      isDefault: true
+
+# Sidecar configuration for dynamic dashboard loading
+sidecar:
+  dashboards:
+    enabled: true
+    searchNamespace: ALL
+  datasources:
+    enabled: true
+    searchNamespace: ALL
+
+# Image configuration
+image:
+  repository: grafana/grafana
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+# Replica count (single instance for lab)
+replicas: 1
+
+# Node selector and tolerations (if needed for specific nodes)
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Service account
+serviceAccount:
+  create: true
+  autoMount: true
