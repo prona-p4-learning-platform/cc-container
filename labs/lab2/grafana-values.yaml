@@ -88,7 +88,7 @@ datasources:
     datasources:
     - name: Prometheus
       type: prometheus
-      url: http://prometheus-service.<prometheus-namespace>.svc.cluster.local:9090
+      url: http://prometheus-service.prometheus.svc.cluster.local:9090
       access: proxy
       isDefault: true
 
@@ -117,5 +117,11 @@ affinity: {}
 
 # Service account
 serviceAccount:
-  create: true
-  autoMount: true
+  create: false
+  autoMount: false
+
+# RBAC configuration
+rbac:
+  create: false
+  useExistingRole: {{ .Values.namespace }}
+  useExistingClusterRole: prometheus
