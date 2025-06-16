@@ -27,7 +27,21 @@ helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 ```
 
-### Step 2: Deploy Sample Applications
+### Step 2: Deploy Grafana with Custom Configuration
+
+Deploy Grafana using the custom values file:
+
+```bash
+helm install my-grafana grafana/grafana -f grafana-values.yaml
+```
+
+Wait for Grafana to be ready:
+
+```bash
+kubectl get pods -l app.kubernetes.io/name=grafana
+```
+
+### Step 3: Deploy Sample Applications
 
 Deploy two test applications that will generate metrics for monitoring:
 
@@ -40,20 +54,6 @@ Verify the deployments:
 ```bash
 kubectl get pods
 kubectl get svc
-```
-
-### Step 3: Deploy Grafana with Custom Configuration
-
-Deploy Grafana using the custom values file:
-
-```bash
-helm install my-grafana grafana/grafana -f grafana-values.yaml
-```
-
-Wait for Grafana to be ready:
-
-```bash
-kubectl get pods -l app.kubernetes.io/name=grafana
 ```
 
 ### Step 4: Access Grafana
@@ -79,7 +79,7 @@ Access Grafana in your browser using the external IP. Login with:
 1. In Grafana, go to **Configuration** → **Data Sources**
 2. Click **Add data source**
 3. Select **Prometheus**
-4. Set the URL to: `http://prometheus-server.<prometheus_namespace>.svc.cluster.local`
+4. Set the URL to: `http://prometheus-server.prometheus.svc.cluster.local`
 5. Click **Save & Test**
 
 ### Step 6: Import and Create Dashboards
