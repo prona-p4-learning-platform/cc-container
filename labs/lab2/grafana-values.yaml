@@ -123,5 +123,5 @@ serviceAccount:
 # RBAC configuration
 rbac:
   create: false
-  useExistingRole: {{ .Values.namespace }}
+  useExistingRole: {{ .Release.Namespace }}
   useExistingClusterRole: prometheus
