@@ -29,7 +29,7 @@ helm repo update
 
 ### Step 2: Deploy Grafana with Custom Configuration
 
-Change grafana-values.yaml to use your namesapce (e.g., ns-group40\<your group number\>) for useExistingRole
+Change grafana-values.yaml to use your namesapce (e.g., ns-group-40\<your group number with leading zeros\>, e.g., ns-group-4001) for useExistingRole
 
 Deploy Grafana using the custom values file:
 
