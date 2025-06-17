@@ -29,6 +29,8 @@ helm repo update
 
 ### Step 2: Deploy Grafana with Custom Configuration
 
+Change grafana-values.yaml to use your namesapce (e.g., ns-group40\<your group number\>) for useExistingRole
+
 Deploy Grafana using the custom values file:
 
 ```bash
@@ -76,10 +78,10 @@ Access Grafana in your browser using the external IP. Login with:
 
 ### Step 5: Configure Prometheus Data Source
 
-1. In Grafana, go to **Configuration** → **Data Sources**
-2. Click **Add data source**
+1. In Grafana, go to **Connections** → **Data Sources**
+2. Click **Add new data source**
 3. Select **Prometheus**
-4. Set the URL to: `http://prometheus-server.prometheus.svc.cluster.local`
+4. Set the URL to: `http://prometheus-service.prometheus.svc.cluster.local:9090`
 5. Click **Save & Test**
 
 ### Step 6: Import and Create Dashboards
@@ -87,22 +89,21 @@ Access Grafana in your browser using the external IP. Login with:
 #### Import Pre-built Dashboard
 
 1. Go to **Dashboards** → **Import**
-2. Use dashboard ID `6417` (Kubernetes Cluster Monitoring)
-3. Select your Prometheus data source
-4. Click **Import**
+2. Take a look at dashboard ID `6417` (Kubernetes Cluster Monitoring)
 
 #### Create Custom Dashboard
 
 1. Create a new dashboard
-2. Add panels to monitor:
-   - CPU usage of your sample applications
+2. Add panels to monitor, e.g.:
+   - Number of pods running in the cluster
+   - CPU usage of the cluster
    - Memory usage
    - Network traffic
    - Pod restart counts
 
 ### Step 7: Explore Monitoring Data
 
-Use your dashboards to:
+You can use dashboards to:
 1. Monitor the performance of your sample applications
 2. Observe metrics in real-time
 3. Scale your applications and watch the metrics change:
@@ -166,3 +167,4 @@ helm uninstall my-grafana
 - [Grafana Documentation](https://grafana.com/docs/)
 - [Prometheus Metrics](https://prometheus.io/docs/concepts/metric_types/)
 - [Kubernetes Monitoring Best Practices](https://kubernetes.io/docs/concepts/cluster-administration/monitoring/)
+- [RKE2 Monitoring and Alerting](https://ranchermanager.docs.rancher.com/integrations-in-rancher/monitoring-and-alerting/promql-expressions)

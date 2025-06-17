@@ -82,15 +82,15 @@ dashboards:
       datasource: Prometheus
 
 # Data source configuration (will be configured manually in lab)
-datasources:
-  datasources.yaml:
-    apiVersion: 1
-    datasources:
-    - name: Prometheus
-      type: prometheus
-      url: http://prometheus-service.prometheus.svc.cluster.local:9090
-      access: proxy
-      isDefault: true
+#datasources:
+#  datasources.yaml:
+#    apiVersion: 1
+#    datasources:
+#    - name: Prometheus
+#      type: prometheus
+#      url: http://prometheus-service.prometheus.svc.cluster.local:9090
+#      access: proxy
+#      isDefault: true
 
 # Sidecar configuration for dynamic dashboard loading
 sidecar:
@@ -123,5 +123,5 @@ serviceAccount:
 # RBAC configuration
 rbac:
   create: false
-  useExistingRole: {{ .Release.Namespace }}
+  useExistingRole: {{ your namespace }}
   useExistingClusterRole: prometheus
